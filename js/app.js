@@ -944,6 +944,8 @@ function parseJsonlData(jsonlText, date) {
 
 // 获取所有类别并按偏好排序
 function getAllCategories(data) {
+    // Only show user-configured categories
+    const ALLOWED_CATEGORIES = ['cs.CL', 'cs.AI', 'cs.CV'];
   const categories = Object.keys(data);
   const catePaperCount = {};
   
@@ -952,7 +954,7 @@ function getAllCategories(data) {
   });
   
   return {
-    sortedCategories: categories.sort((a, b) => {
+    sortedCategories: categories.filter(c => ALLOWED_CATEGORIES.includes(c)).sort((a, b) => {
       return a.localeCompare(b);
     }),
     categoryCounts: catePaperCount
